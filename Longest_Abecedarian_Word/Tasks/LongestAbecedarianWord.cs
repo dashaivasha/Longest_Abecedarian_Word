@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InternshipProject.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -47,10 +48,14 @@ namespace Longest_Abecedarian_Word.Tasks
 
             }
 
-            result = maxIndexOfAbecedarianWord == -1 ? "" : array[maxIndexOfAbecedarianWord];
-
-            return result;
-
+            if (maxIndexOfAbecedarianWord == -1)
+            {
+               throw new LongestAbecedarianWordException(message: "Abecedarian word not found");
+            }
+            else
+            {
+               return result =  $"Longest abecedarian word:  {array[maxIndexOfAbecedarianWord]}";
+            }
         }
     }
 }
