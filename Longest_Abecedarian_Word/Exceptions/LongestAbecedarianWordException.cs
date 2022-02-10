@@ -11,7 +11,6 @@ namespace InternshipProject.Exceptions
         public LongestAbecedarianWordException(string message) : base(message)
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
-            
         }
     }
 }

@@ -30,20 +30,32 @@ namespace Longest_Abecedarian_Word.ConsoleMenu
 
                 Console.BackgroundColor = ConsoleColor.Black;
                 Console.ForegroundColor = ConsoleColor.White;
-                var UserChoice = Convert.ToInt32(Console.ReadLine());
+                 var UserChoice = Convert.ToInt32(Console.ReadLine());
                 action = ArrayActions[--UserChoice];
             }
             catch (IndexOutOfRangeException)
             {
-                Console.WriteLine("IndexOutOfRangeException: Wrong case number, select from 1 to 4");
+                Console.WriteLine($"IndexOutOfRangeException: Wrong case number, select from 1 to {ArrayActions.Length}");
                 OutputCasesandReadingUserChoise();
             }
             catch (InvalidCastException)
             {
                 OutputCasesandReadingUserChoise();
             }
-
-            Run(action);
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                OutputCasesandReadingUserChoise();
+            }
+            try
+            {
+                Run(action);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                OutputCasesandReadingUserChoise();
+            }
         }
 
         public static void Run (MenuActions actions)
@@ -51,43 +63,27 @@ namespace Longest_Abecedarian_Word.ConsoleMenu
             switch(actions)
             {
                 case MenuActions.FindLongestAbecedarianWord:
-                    try
-                    {
-                        Console.WriteLine($"Your choice {MenuActions.FindLongestAbecedarianWord}");
-                        Console.WriteLine($"Enter words separated by a space character ");
-                        var UserWords = Console.ReadLine();
-                        Console.WriteLine(LongestAbecedarianWord.FindLongestAbecedarian(UserWords));
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.Message);
-                    }
-                    OutputCasesandReadingUserChoise();
+                    Console.WriteLine($"Your choice {MenuActions.FindLongestAbecedarianWord}");
+                    Console.WriteLine($"Enter words separated by a space character ");
+                    var UserWords = Console.ReadLine();
+                    Console.WriteLine(LongestAbecedarianWord.FindLongestAbecedarian(UserWords));
                     break;
 
                 case MenuActions.ReverseAndNot:
-                    try
-                    {
-                        Console.WriteLine($"Your choice {MenuActions.ReverseAndNot}");
-                        Console.WriteLine($"Enter numbers");
-                        var Usernumber = Console.ReadLine();
-                        Console.WriteLine(ReverseAndNot.Reverse(Convert.ToInt32(Usernumber)));
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.Message); 
-                    }
-                    OutputCasesandReadingUserChoise();
+                    Console.WriteLine($"Your choice {MenuActions.ReverseAndNot}");
+                    Console.WriteLine($"Enter numbers");
+                    var Usernumber = Console.ReadLine();
+                    Console.WriteLine(ReverseAndNot.Reverse(Convert.ToInt32(Usernumber)));                  
                     break;
 
                 case MenuActions.CloseTask:
-                    OutputCasesandReadingUserChoise();
                     break;
 
                 case MenuActions.Exit:
                     Environment.Exit(0);
                     break;
             }
+            OutputCasesandReadingUserChoise();
         }
     }
 }

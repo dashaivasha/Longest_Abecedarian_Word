@@ -12,7 +12,7 @@ namespace Longest_Abecedarian_Word.Tasks
     {
         public static string FindLongestAbecedarian(string words)
         {
-            string[] array = words.Split(' ');
+            string[] array = words.ToLower().Split(' ');
             var Alphabet = "abcdefghijklmnopqrstuvwxyz";
             var result = String.Empty;
             var maxIndexOfAbecedarianWord = -1;
@@ -27,6 +27,11 @@ namespace Longest_Abecedarian_Word.Tasks
                 for (; i < word.Length; i++)
                 {
                     var currentIndexInAlphabet = Alphabet.IndexOf(word[i]);
+
+                    if (currentIndexInAlphabet == -1)
+                    {
+                        throw new LongestAbecedarianWordException(message: "Unsupported symbol");
+                    }
 
                     if (currentIndexInAlphabet < lastIndexInAlphabet)
                     {
