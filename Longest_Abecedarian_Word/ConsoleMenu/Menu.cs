@@ -1,19 +1,14 @@
-﻿using InternshipProject.Exceptions;
-using InternshipProject.Tasks;
-using Longest_Abecedarian_Word.Tasks;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Text;
-using System.Threading.Tasks;
+using InternshipProject.Tasks;
 using static InternshipProject.ConsoleMenu.Enums.MenuActionsEnum;
 
-namespace Longest_Abecedarian_Word.ConsoleMenu
+namespace InternshipProject.ConsoleMenu
 {
     public class Menu
     {
-        public static MenuActions[] ArrayActions = { MenuActions.FindLongestAbecedarianWord, MenuActions.ReverseAndNot, MenuActions.CloseTask, MenuActions.Exit };
-        public static MenuActions action = MenuActions.CloseTask;
+        public static int UserChoice = 0;
+
         public static void OutputCasesandReadingUserChoise()
         {
             try
@@ -21,21 +16,24 @@ namespace Longest_Abecedarian_Word.ConsoleMenu
                 Console.BackgroundColor = ConsoleColor.Cyan;
                 Console.ForegroundColor = ConsoleColor.Black;
                 Console.WriteLine("Please enter a number to choose your action");
-                var IndexOfChoise = 1;
+                var indexOfChoise = 1;
 
-                for (int i = 0; i < ArrayActions.Length; i++)
+                StringBuilder stringBuilder = new StringBuilder();
+
+                foreach (MenuActions action in MenuActions.GetValues(typeof(MenuActions)))
                 {
-                    Console.WriteLine("[{0}] = {1}", IndexOfChoise++, ArrayActions[i]);
+                    stringBuilder.Append(indexOfChoise++ + " - " + action.GetDescription() + "\n");
+                    
                 }
-
+                Console.WriteLine(stringBuilder.ToString());
                 Console.BackgroundColor = ConsoleColor.Black;
                 Console.ForegroundColor = ConsoleColor.White;
-                 var UserChoice = Convert.ToInt32(Console.ReadLine());
-                action = ArrayActions[--UserChoice];
+                UserChoice = Convert.ToInt32(Console.ReadLine());
+                
             }
             catch (IndexOutOfRangeException)
             {
-                Console.WriteLine($"IndexOutOfRangeException: Wrong case number, select from 1 to {ArrayActions.Length}");
+                Console.WriteLine($"IndexOutOfRangeException: Wrong case number, select from 1 to {Enum.GetValues(typeof(MenuActions)).Length}");
                 OutputCasesandReadingUserChoise();
             }
             catch (InvalidCastException)
@@ -49,7 +47,7 @@ namespace Longest_Abecedarian_Word.ConsoleMenu
             }
             try
             {
-                Run(action);
+                Run(UserChoice);
             }
             catch (Exception ex)
             {
@@ -58,32 +56,38 @@ namespace Longest_Abecedarian_Word.ConsoleMenu
             }
         }
 
-        public static void Run (MenuActions actions)
+        private static void Run (int actions)
         {
             switch(actions)
             {
-                case MenuActions.FindLongestAbecedarianWord:
+                case (int)MenuActions.FindLongestAbecedarianWord:
+                    Console.WriteLine("Choose how you want to enter the words");
+                    Console.ReadLine();
+
                     Console.WriteLine($"Your choice {MenuActions.FindLongestAbecedarianWord}");
                     Console.WriteLine($"Enter words separated by a space character ");
-                    var UserWords = Console.ReadLine();
-                    Console.WriteLine(LongestAbecedarianWord.FindLongestAbecedarian(UserWords));
+                    var userWords = Console.ReadLine();
+                    Console.WriteLine(FindLongestAbecedarian(userWords));
                     break;
-
-                case MenuActions.ReverseAndNot:
+                case (int)MenuActions.ReverseAndNot:
                     Console.WriteLine($"Your choice {MenuActions.ReverseAndNot}");
                     Console.WriteLine($"Enter numbers");
-                    var Usernumber = Console.ReadLine();
-                    Console.WriteLine(ReverseAndNot.Reverse(Convert.ToInt32(Usernumber)));                  
+                    var usernumber = Console.ReadLine();
+                    Console.WriteLine(ReverseAndNot.Reverse(Convert.ToInt32(usernumber)));                  
                     break;
-
-                case MenuActions.CloseTask:
+                case (int)MenuActions.CloseTask:
                     break;
-
-                case MenuActions.Exit:
+                case (int)MenuActions.Exit:
                     Environment.Exit(0);
                     break;
             }
+
             OutputCasesandReadingUserChoise();
+        }
+
+        private static bool FindLongestAbecedarian(string userWords)
+        {
+            throw new NotImplementedException();
         }
     }
 }

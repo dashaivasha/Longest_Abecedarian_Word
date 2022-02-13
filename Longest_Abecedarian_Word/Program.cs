@@ -1,8 +1,6 @@
-﻿using Longest_Abecedarian_Word.ConsoleMenu;
-using System;
+﻿using InternshipProject.ConsoleMenu;
 
-
-namespace Longest_Abecedarian_Word
+namespace InternshipProject
 {
     class Program
     {

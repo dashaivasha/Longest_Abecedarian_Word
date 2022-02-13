@@ -1,20 +1,15 @@
-﻿using InternshipProject.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using InternshipProject.Exceptions;
 
-namespace Longest_Abecedarian_Word.Tasks
+namespace InternshipProject.Tasks
 {
-    
     public static class LongestAbecedarianWord
     {
         public static string FindLongestAbecedarian(string words)
         {
             string[] array = words.ToLower().Split(' ');
             var Alphabet = "abcdefghijklmnopqrstuvwxyz";
-            var result = String.Empty;
+            var result = string.Empty;
             var maxIndexOfAbecedarianWord = -1;
             var maxLenghthOfAbecedarianWord = -1;
 
@@ -57,10 +52,9 @@ namespace Longest_Abecedarian_Word.Tasks
             {
                throw new LongestAbecedarianWordException(message: "Abecedarian word not found");
             }
-            else
-            {
+            
                return result =  $"Longest abecedarian word:  {array[maxIndexOfAbecedarianWord]}";
-            }
+            
         }
     }
 }
