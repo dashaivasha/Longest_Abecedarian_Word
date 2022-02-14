@@ -61,12 +61,24 @@ namespace InternshipProject.ConsoleMenu
             switch(actions)
             {
                 case (int)MenuActions.FindLongestAbecedarianWord:
-                    Console.WriteLine("Choose how you want to enter the words");
-                    Console.ReadLine();
-
                     Console.WriteLine($"Your choice {MenuActions.FindLongestAbecedarianWord}");
-                    Console.WriteLine($"Enter words separated by a space character ");
-                    var userWords = Console.ReadLine();
+                    var userWords = string.Empty;
+                    Console.WriteLine("Choose how you want to enter the words \n 1 - Json" +
+                    "\n 2 - Enter it yourself ");
+                    var userChoise = Convert.ToInt32(Console.ReadLine());
+                    if (userChoise == 1)
+                    {
+                        TaskParams task = new TaskParams();
+                        task.Str = new string[] { };
+                        //DataSerializer.JsonSerialize("abcword apple", "/data.json");
+                        userWords = DataSerializer.JsonDeserialize(typeof(string), "/data.json") as string;
+                        Console.WriteLine(userWords);
+                    }
+                    if (userChoise == 2)
+                    {
+                        Console.WriteLine($"Enter words separated by a space character ");
+                        userWords = Console.ReadLine();
+                    }
                     Console.WriteLine(FindLongestAbecedarian(userWords));
                     break;
                 case (int)MenuActions.ReverseAndNot:
