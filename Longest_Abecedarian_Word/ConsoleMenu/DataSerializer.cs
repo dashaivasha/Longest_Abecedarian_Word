@@ -31,7 +31,6 @@ namespace InternshipProject.ConsoleMenu
             }
 
             return obj.ToObject(dataType);
-
         }
     }
 }

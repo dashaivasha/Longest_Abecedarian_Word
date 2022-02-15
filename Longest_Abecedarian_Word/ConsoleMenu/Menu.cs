@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 using System.Text;
 using InternshipProject.Tasks;
 using static InternshipProject.ConsoleMenu.Enums.MenuActionsEnum;
@@ -69,7 +71,10 @@ namespace InternshipProject.ConsoleMenu
                     if (userChoise == 1)
                     {
                         TaskParams task = new TaskParams();
-                        task = DataSerializer.JsonDeserialize(typeof(TaskParams), "data.json") as TaskParams;
+                        string workingDirectory = Environment.CurrentDirectory;
+                        string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
+                        var path = $"{projectDirectory}\\Data\\data.json";
+                        task = DataSerializer.JsonDeserialize(typeof(TaskParams), path) as TaskParams;
                         StringBuilder stringBuilder = new StringBuilder();
 
                         foreach(string value in task.Str )
