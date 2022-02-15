@@ -23,6 +23,7 @@ namespace InternshipProject.ConsoleMenu.Enums
         {
             Type genericEnumType = GenericEnum.GetType();
             MemberInfo[] memberInfo = genericEnumType.GetMember(GenericEnum.ToString());
+
             if ((memberInfo != null && memberInfo.Length > 0))
             {
                 var _Attribs = memberInfo[0].GetCustomAttributes(typeof(System.ComponentModel.DescriptionAttribute), false);
@@ -31,7 +32,9 @@ namespace InternshipProject.ConsoleMenu.Enums
                     return ((System.ComponentModel.DescriptionAttribute)_Attribs.ElementAt(0)).Description;
                 }
             }
+
             return GenericEnum.ToString();
+
         }
 
     }

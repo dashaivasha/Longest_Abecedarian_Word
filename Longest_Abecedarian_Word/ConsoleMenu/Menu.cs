@@ -17,7 +17,6 @@ namespace InternshipProject.ConsoleMenu
                 Console.ForegroundColor = ConsoleColor.Black;
                 Console.WriteLine("Please enter a number to choose your action");
                 var indexOfChoise = 1;
-
                 StringBuilder stringBuilder = new StringBuilder();
 
                 foreach (MenuActions action in MenuActions.GetValues(typeof(MenuActions)))
@@ -25,11 +24,11 @@ namespace InternshipProject.ConsoleMenu
                     stringBuilder.Append(indexOfChoise++ + " - " + action.GetDescription() + "\n");
                     
                 }
+
                 Console.WriteLine(stringBuilder.ToString());
                 Console.BackgroundColor = ConsoleColor.Black;
                 Console.ForegroundColor = ConsoleColor.White;
-                UserChoice = Convert.ToInt32(Console.ReadLine());
-                
+                UserChoice = Convert.ToInt32(Console.ReadLine()); 
             }
             catch (IndexOutOfRangeException)
             {
@@ -66,20 +65,30 @@ namespace InternshipProject.ConsoleMenu
                     Console.WriteLine("Choose how you want to enter the words \n 1 - Json" +
                     "\n 2 - Enter it yourself ");
                     var userChoise = Convert.ToInt32(Console.ReadLine());
+
                     if (userChoise == 1)
                     {
                         TaskParams task = new TaskParams();
-                        task.Str = new string[] { };
-                        //DataSerializer.JsonSerialize("abcword apple", "/data.json");
-                        userWords = DataSerializer.JsonDeserialize(typeof(string), "/data.json") as string;
+                        task = DataSerializer.JsonDeserialize(typeof(TaskParams), "data.json") as TaskParams;
+                        StringBuilder stringBuilder = new StringBuilder();
+
+                        foreach(string value in task.Str )
+                        {
+                            stringBuilder.Append(value);
+                            stringBuilder.Append(' ');
+                        }
+
+                        userWords = stringBuilder.ToString();
                         Console.WriteLine(userWords);
                     }
+
                     if (userChoise == 2)
                     {
                         Console.WriteLine($"Enter words separated by a space character ");
                         userWords = Console.ReadLine();
                     }
-                    Console.WriteLine(FindLongestAbecedarian(userWords));
+
+                    Console.WriteLine(LongestAbecedarianWord.FindLongestAbecedarian(userWords));
                     break;
                 case (int)MenuActions.ReverseAndNot:
                     Console.WriteLine($"Your choice {MenuActions.ReverseAndNot}");
@@ -95,11 +104,6 @@ namespace InternshipProject.ConsoleMenu
             }
 
             OutputCasesandReadingUserChoise();
-        }
-
-        private static bool FindLongestAbecedarian(string userWords)
-        {
-            throw new NotImplementedException();
         }
     }
 }
