@@ -8,7 +8,7 @@ namespace InternshipProject.Tasks
         public static string FindLongestAbecedarian(string words)
         {
             string[] array = words.ToLower().Split(' ');
-            var Alphabet = "abcdefghijklmnopqrstuvwxyz";
+            var alphabet = "abcdefghijklmnopqrstuvwxyz";
             var result = string.Empty;
             var maxIndexOfAbecedarianWord = -1;
             var maxLenghthOfAbecedarianWord = -1;
@@ -21,7 +21,7 @@ namespace InternshipProject.Tasks
 
                 for (; i < word.Length; i++)
                 {
-                    var currentIndexInAlphabet = Alphabet.IndexOf(word[i]);
+                    var currentIndexInAlphabet = alphabet.IndexOf(word[i]);
 
                     if (currentIndexInAlphabet == -1)
                     {
@@ -32,6 +32,7 @@ namespace InternshipProject.Tasks
                     {
                         break;
                     }
+
                     lastIndexInAlphabet = currentIndexInAlphabet;
                 }
 
@@ -45,7 +46,6 @@ namespace InternshipProject.Tasks
                         maxIndexOfAbecedarianWord = j;
                     }
                 }
-
             }
 
             if (maxIndexOfAbecedarianWord == -1)

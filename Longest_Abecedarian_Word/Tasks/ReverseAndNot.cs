@@ -7,7 +7,7 @@ namespace InternshipProject.Tasks
     {
         public static string Reverse(int number)
         {
-            return $"Result: {String.Concat(number.ToString().Reverse())}{number}";
+            return $"Result: {string.Concat(number.ToString().Reverse())}{number}";
         }
     }
 }
