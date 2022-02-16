@@ -6,7 +6,7 @@ namespace InternshipProject
     {
         static void Main(string[] args)
         {
-            Menu.OutputCasesandReadingUserChoise();
+            Menu.OutputCasesandReadingUserChoice();
         }
     }
 }

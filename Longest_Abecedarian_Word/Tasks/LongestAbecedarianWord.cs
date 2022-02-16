@@ -53,7 +53,6 @@ namespace InternshipProject.Tasks
             }
             
                return result =  $"Longest abecedarian word:  {array[maxIndexOfAbecedarianWord]}";
-            
         }
     }
 }

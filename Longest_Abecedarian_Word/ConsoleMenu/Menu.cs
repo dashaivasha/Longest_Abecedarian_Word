@@ -9,9 +9,9 @@ namespace InternshipProject.ConsoleMenu
 {
     public class Menu
     {
-        public static int UserChoice = 0;
+        public static int UserChoice;
 
-        public static void OutputCasesandReadingUserChoise()
+        public static void OutputCasesandReadingUserChoice()
         {
             try
             {
@@ -23,8 +23,7 @@ namespace InternshipProject.ConsoleMenu
 
                 foreach (MenuActions action in MenuActions.GetValues(typeof(MenuActions)))
                 {
-                    stringBuilder.Append(indexOfChoise++ + " - " + action.GetDescription() + "\n");
-                    
+                    stringBuilder.Append(indexOfChoise++ + " - " + action.GetDescription() + "\n"); 
                 }
 
                 Console.WriteLine(stringBuilder.ToString());
@@ -35,16 +34,16 @@ namespace InternshipProject.ConsoleMenu
             catch (IndexOutOfRangeException)
             {
                 Console.WriteLine($"IndexOutOfRangeException: Wrong case number, select from 1 to {Enum.GetValues(typeof(MenuActions)).Length}");
-                OutputCasesandReadingUserChoise();
+                OutputCasesandReadingUserChoice();
             }
             catch (InvalidCastException)
             {
-                OutputCasesandReadingUserChoise();
+                OutputCasesandReadingUserChoice();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                OutputCasesandReadingUserChoise();
+                OutputCasesandReadingUserChoice();
             }
             try
             {
@@ -53,7 +52,7 @@ namespace InternshipProject.ConsoleMenu
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                OutputCasesandReadingUserChoise();
+                OutputCasesandReadingUserChoice();
             }
         }
 
@@ -108,7 +107,7 @@ namespace InternshipProject.ConsoleMenu
                     break;
             }
 
-            OutputCasesandReadingUserChoise();
+            OutputCasesandReadingUserChoice();
         }
     }
 }

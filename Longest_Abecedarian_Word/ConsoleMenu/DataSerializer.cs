@@ -9,13 +9,14 @@ namespace InternshipProject.ConsoleMenu
     {
         public static void JsonSerialize(object dataType, string filePath)
         {
-            Newtonsoft.Json.JsonSerializer jsonSerializer = new();
+            Newtonsoft.Json.JsonSerializer jsonSerializer = new JsonSerializer();
             StreamWriter sw = new StreamWriter(filePath);
             JsonWriter jsonwr = new JsonTextWriter(sw);
             jsonSerializer.Serialize(jsonwr, dataType);
             jsonwr.Close();
             sw.Close();
         }
+
         public static object JsonDeserialize(Type dataType, string filePath)
         {
             JObject obj = null;
