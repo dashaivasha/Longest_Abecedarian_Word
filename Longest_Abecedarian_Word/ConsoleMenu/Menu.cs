@@ -185,35 +185,27 @@ namespace InternshipProject.ConsoleMenu
                         Console.WriteLine("How many tests to create?");
                         var count = Convert.ToInt32(Console.ReadLine());
                         string[] Arraysubjects = new string[count];
-                        string[][] ArraymarkScheme = new string[count][];
+                        string[] ArrayMarkScheme = new string[count];
                         string[] ArraypassMark = new string[count];
-                        string[] MarkScheme = new string[10];
                         Testpaper[] testpaper = new Testpaper[count];
 
                         for (int i = 0; i < count; i++)
                         {
-                            {
-                                Console.WriteLine("Enter a subject name");
-                                var subject = Console.ReadLine();
-                                Arraysubjects[i] = subject;
-
-
-                                for (int j = 0; j<count; j++)
-                                {
-                                    Console.WriteLine("Enter a Mark Scheme (separated by a space character)");
-                                    var markScheme = Console.ReadLine();
-                                    ArraymarkScheme[count][j] = MarkScheme[j];
-                                    Console.WriteLine(MarkScheme[j]);
-                                }
-  
-                                Console.WriteLine("Enter a Pass Mark");
-                                var passMark = Console.ReadLine();
-                                ArraypassMark[i] = passMark;
-                                testpaper[i] = new Testpaper(Arraysubjects[i], ArraymarkScheme[i], ArraypassMark[i]);
-                                Console.WriteLine(testpaper[i].Subject +"   " + testpaper[i].MarkScheme + "  " + testpaper[i].PassMark);
-                            }
+                            Console.WriteLine("Enter a subject name");
+                            var subject = Console.ReadLine();
+                            Arraysubjects[i] = subject;
+                            Console.WriteLine("Enter a Mark Scheme (separated by a space character)");
+                            var markScheme = Console.ReadLine();
+                            ArrayMarkScheme[i] = markScheme;
+                            Console.WriteLine("Enter a Pass Mark");
+                            var passMark = Console.ReadLine();
+                            ArraypassMark[i] = passMark;
+                            testpaper[i] = new Testpaper(Arraysubjects[i], ArrayMarkScheme[i], ArraypassMark[i]);
+                            Console.WriteLine(testpaper[i].Subject +"   " + testpaper[i].MarkScheme + "  " + testpaper[i].PassMark);
                         }
+                        Console.WriteLine(testpaper[0].Subject + "   " + testpaper[1].Subject);
                     }
+                    
                     break;
                 case (int)MenuActions.CloseTask:
                     break;

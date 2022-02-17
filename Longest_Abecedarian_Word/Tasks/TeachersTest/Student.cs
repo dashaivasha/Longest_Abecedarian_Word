@@ -27,7 +27,7 @@ namespace InternshipProject.Tasks.TeachersTest
 
                     for (int i = 0; i < paper.Key.MarkScheme.Length; i++)
                     {
-                        if (paper.Key.MarkScheme[i] == paper.Value[i])
+                        if (paper.Key.MarkScheme == paper.Value[i])
                         {
                             score++;
                         }
