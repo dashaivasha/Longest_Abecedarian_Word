@@ -9,7 +9,7 @@ namespace InternshipProject.Tasks
         {
             _radius = radius;
         }
-        public double GetS() => Math.PI * Math.Pow(_radius,2);
-        public double GetP() => 2 * Math.PI * _radius;
+        public string GetS() => $"S = {Math.PI * Math.Pow(_radius,2)}";
+        public string GetP() => $"P = {2 * Math.PI * _radius}";
     }
 }

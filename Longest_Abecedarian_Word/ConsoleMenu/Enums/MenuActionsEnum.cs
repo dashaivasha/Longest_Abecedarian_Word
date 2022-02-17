@@ -13,6 +13,10 @@ namespace InternshipProject.ConsoleMenu.Enums
             FindLongestAbecedarianWord = 1,
             [Description("ReverseAndNot")]
             ReverseAndNot,
+            [Description("Circle")]
+            Circle,
+            [Description("Tests")]
+            Tests,
             [Description("CloseTask")]
             CloseTask,
             [Description("Exit")]
