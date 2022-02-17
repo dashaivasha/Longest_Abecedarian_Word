@@ -1,15 +1,14 @@
-﻿using System;
+﻿using InternshipProject.Tasks;
+using InternshipProject.Tasks.TeachersTest;
+using System;
 using System.IO;
-using System.Reflection;
 using System.Text;
-using InternshipProject.Tasks;
 using static InternshipProject.ConsoleMenu.Enums.MenuActionsEnum;
 
 namespace InternshipProject.ConsoleMenu
 {
     public class Menu
     {
-        
         private static int _userChoice;
 
         public static void OutputCasesandReadingUserChoice()
@@ -24,13 +23,13 @@ namespace InternshipProject.ConsoleMenu
 
                 foreach (MenuActions action in MenuActions.GetValues(typeof(MenuActions)))
                 {
-                    stringBuilder.Append(indexOfChoise++ + " - " + action.GetDescription() + "\n"); 
+                    stringBuilder.Append(indexOfChoise++ + " - " + action.GetDescription() + "\n");
                 }
 
                 Console.WriteLine(stringBuilder.ToString());
                 Console.BackgroundColor = ConsoleColor.Black;
                 Console.ForegroundColor = ConsoleColor.White;
-                _userChoice = Convert.ToInt32(Console.ReadLine()); 
+                _userChoice = Convert.ToInt32(Console.ReadLine());
             }
             catch (IndexOutOfRangeException)
             {
@@ -57,9 +56,9 @@ namespace InternshipProject.ConsoleMenu
             }
         }
 
-        private static void Run (int actions)
+        private static void Run(int actions)
         {
-            switch(actions)
+            switch (actions)
             {
                 case (int)MenuActions.FindLongestAbecedarianWord:
                     Console.WriteLine($"Your choice {MenuActions.FindLongestAbecedarianWord}");
@@ -77,7 +76,7 @@ namespace InternshipProject.ConsoleMenu
                         task = DataSerializer.JsonDeserialize(typeof(TaskParams), path) as TaskParams;
                         StringBuilder stringBuilder = new StringBuilder();
 
-                        foreach(string value in task.Str )
+                        foreach (string value in task.Str)
                         {
                             stringBuilder.Append(value);
                             stringBuilder.Append(' ');
@@ -123,7 +122,7 @@ namespace InternshipProject.ConsoleMenu
                         Console.WriteLine($"Enter numbers");
                         userNumber = Console.ReadLine();
                     }
-                    
+
                     Console.WriteLine(ReverseAndNot.Reverse(Convert.ToInt32(userNumber)));
                     break;
                 case (int)MenuActions.Circle:
@@ -157,27 +156,35 @@ namespace InternshipProject.ConsoleMenu
                     }
 
                     Circle circle = new Circle(Convert.ToDouble(dataForCircle));
+                    Console.WriteLine(circle.GetP() + "\n" + circle.GetS());
                     break;
                 case (int)MenuActions.Tests:
+                    var result = string.Empty;
                     Console.WriteLine($"Your choice {MenuActions.Tests}");
-                    Console.WriteLine("Choose how you want to enter the words \n 1 - Json" +
+                    Console.WriteLine("Choose how you want to enter the words \n 1 - Get Test paper from Json" +
                     "\n 2 - Enter it yourself ");
                     _userChoice = Convert.ToInt32(Console.ReadLine());
                     if (_userChoice == 1)
                     {
-                        TaskParams task = new TaskParams();
+                        Student student = new Student();
                         string workingDirectory = Environment.CurrentDirectory;
                         string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
                         var path = $"{projectDirectory}\\Data\\dataTests.json";
-                        task = DataSerializer.JsonDeserialize(typeof(TaskParams), path) as TaskParams;
+                        Testpaper testpaper = new Testpaper("Mathematics", new string[] { "1c", "2b", "3f" }, "60");
+                        testpaper = DataSerializer.JsonDeserialize(typeof(Testpaper), path) as Testpaper;
                         StringBuilder stringBuilder = new StringBuilder();
+                        Console.WriteLine("Enter answers");
+                        var studentAnswers = Console.ReadLine();
+                        string[] ArrayAnsw = studentAnswers.Split(' ');
+                        student.TakeTest(testpaper, ArrayAnsw);
 
-                        foreach (string value in task.Str)
+                        foreach (string value in student.TestsTaken)
                         {
                             stringBuilder.Append(value);
                         }
 
-                        dataForCircle = stringBuilder.ToString();
+                        result = stringBuilder.ToString();
+                        Console.WriteLine(result);
                     }
 
                     if (_userChoice == 2)
@@ -185,9 +192,10 @@ namespace InternshipProject.ConsoleMenu
                         Console.WriteLine("How many tests to create?");
                         var count = Convert.ToInt32(Console.ReadLine());
                         string[] Arraysubjects = new string[count];
-                        string[] ArrayMarkScheme = new string[count];
                         string[] ArraypassMark = new string[count];
                         Testpaper[] testpaper = new Testpaper[count];
+                        var student = new Student();
+                        StringBuilder stringBuilder = new StringBuilder();
 
                         for (int i = 0; i < count; i++)
                         {
@@ -196,16 +204,25 @@ namespace InternshipProject.ConsoleMenu
                             Arraysubjects[i] = subject;
                             Console.WriteLine("Enter a Mark Scheme (separated by a space character)");
                             var markScheme = Console.ReadLine();
-                            ArrayMarkScheme[i] = markScheme;
+                            string[] ArrayMarkScheme = markScheme.Split(' ');
                             Console.WriteLine("Enter a Pass Mark");
                             var passMark = Console.ReadLine();
                             ArraypassMark[i] = passMark;
-                            testpaper[i] = new Testpaper(Arraysubjects[i], ArrayMarkScheme[i], ArraypassMark[i]);
-                            Console.WriteLine(testpaper[i].Subject +"   " + testpaper[i].MarkScheme + "  " + testpaper[i].PassMark);
+                            testpaper[i] = new Testpaper(Arraysubjects[i], ArrayMarkScheme, ArraypassMark[i]);
+                            Console.WriteLine("Enter answers");
+                            var studentAnswers = Console.ReadLine();
+                            string[] ArrayAnsw = studentAnswers.Split(' ');
+                            student.TakeTest(testpaper[i], ArrayAnsw);
+
+                            foreach (string value in student.TestsTaken)
+                            {
+                                stringBuilder.Append(value);
+                            }
+
+                            result = stringBuilder.ToString();
+                            Console.WriteLine(result);
                         }
-                        Console.WriteLine(testpaper[0].Subject + "   " + testpaper[1].Subject);
                     }
-                    
                     break;
                 case (int)MenuActions.CloseTask:
                     break;
@@ -213,7 +230,6 @@ namespace InternshipProject.ConsoleMenu
                     Environment.Exit(0);
                     break;
             }
-
             OutputCasesandReadingUserChoice();
         }
     }

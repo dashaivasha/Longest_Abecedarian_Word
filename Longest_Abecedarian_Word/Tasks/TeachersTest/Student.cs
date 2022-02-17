@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InternshipProject.Tasks.TeachersTest
 {
@@ -27,7 +25,7 @@ namespace InternshipProject.Tasks.TeachersTest
 
                     for (int i = 0; i < paper.Key.MarkScheme.Length; i++)
                     {
-                        if (paper.Key.MarkScheme == paper.Value[i])
+                        if (paper.Key.MarkScheme[i] == paper.Value[i])
                         {
                             score++;
                         }
@@ -46,6 +44,5 @@ namespace InternshipProject.Tasks.TeachersTest
         {
             this._papers.Add(paper, answers);
         }
-
     }
 }
