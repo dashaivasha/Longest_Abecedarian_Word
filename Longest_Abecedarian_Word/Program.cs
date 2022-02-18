@@ -1,12 +1,12 @@
-﻿using System;
+﻿using InternshipProject.ConsoleMenu;
 
-namespace Longest_Abecedarian_Word
+namespace InternshipProject
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Menu.OutputCasesandReadingUserChoice();
         }
     }
 }
